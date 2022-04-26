@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsfeedTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateNewsfeedTable extends Migration
      */
     public function up()
     {
-        Schema::create('newsfeed', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name',32);
-            $table->string('info');
-            $table->binary('picture')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateNewsfeedTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('newsfeed');
+        Schema::dropIfExists('products');
     }
 }

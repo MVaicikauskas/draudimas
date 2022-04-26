@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsfeedTable extends Migration
+class AddPhoneNumberToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateNewsfeedTable extends Migration
      */
     public function up()
     {
-        Schema::create('newsfeed', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',32);
-            $table->string('info');
-            $table->binary('picture')->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('phone_number')->after('email_verified_at');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateNewsfeedTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('newsfeed');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }
