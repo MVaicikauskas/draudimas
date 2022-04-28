@@ -13,10 +13,10 @@ class CreateNewsfeedTable extends Migration
      */
     public function up()
     {
-        Schema::create('newsfeed', function (Blueprint $table) {
+        Schema::create('newsfeeds', function (Blueprint $table) {
             $table->id();
             $table->string('name',32);
-            $table->string('info');
+            $table->string('info',500);
             $table->binary('picture')->nullable();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateNewsfeedTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('newsfeed');
+        Schema::dropIfExists('newsfeeds');
     }
 }
