@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Consultation;
 
-class newsfeedController extends Controller
+class ConsultationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,17 @@ class newsfeedController extends Controller
      */
     public function index()
     {
-        //
+        $consultation = Consultation::with(['user'])->get();
+
+        foreach($consultation as $value)
+        {
+            echo 'User ID: '. $value->user->user_id. ' <br>'.
+            'Topic: '. $value->topic. ' <br>'.
+            'Type: '. $value->type. ' <br>'.
+            'Additional Information: '. $value->additional_info. ' <br>'.
+            'Consultation Date: '. $value->consultation_date. ' <br>'.
+            '---------------------------------------------------------';
+        }
     }
 
     /**
@@ -81,5 +92,6 @@ class newsfeedController extends Controller
     {
         //
     }
-}
 
+
+}

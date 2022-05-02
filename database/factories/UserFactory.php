@@ -18,7 +18,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'phone_number' => $this->faker->randomNumber(9, true),
+            'phone_number' => $this->faker->numerify('86#######'), //numerify('########') sukurst tiek skaicius kiek yra groteliu
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];

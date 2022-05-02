@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 class ConsultationFactory extends Factory
 {
@@ -15,7 +16,7 @@ class ConsultationFactory extends Factory
     {
         return [
             
-            'user_id' =>$this->faker->randomDigitNotNull(),
+            'user_id' =>User::factory()->create()->id, //paimame user id, tu kurie bus sukurti per factory
             'topic' => 'Draudimo produktai',
             'type' => 'Telefonu', 
             'additional_info' => $this->faker->paragraph(),
