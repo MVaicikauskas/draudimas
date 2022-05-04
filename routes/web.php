@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\NewsfeedController;
+use App\Http\Controllers\HomeController;
 use App\Models\Consultation;
+use App\Models\Newsfeed;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +24,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//Main window of newsfeeds
+Route::get('/home', [NewsfeedController::class, 'index'])->name('newsfeed');
+//Newsfeed create
+Route::get('/create.new', [NewsfeedController::class, 'create']);
+Route::post('/store.new', [NewsfeedController::class, 'store']);
+//Newsfeed update
+Route::get('/update.new/{new}', [NewsfeedController::class, 'edit']);
+Route::post('/update,new/{new}', [NewsfeedController::class, 'update']);
+//Newsfeed delete
+Route::get('/delete.new/{new}', [NewsfeedController::class, 'destroy']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/consultation', [ConsultationController::class, 'index']);
+
+
+

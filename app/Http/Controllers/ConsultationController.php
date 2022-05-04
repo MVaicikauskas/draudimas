@@ -23,7 +23,7 @@ class ConsultationController extends Controller
             'Type: '. $value->type. ' <br>'.
             'Additional Information: '. $value->additional_info. ' <br>'.
             'Consultation Date: '. $value->consultation_date. ' <br>'.
-            '---------------------------------------------------------';
+            '---------------------------------------------------------<br>';
         }
     }
 

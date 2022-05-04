@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Newsfeed;
+use Illuminate\Support\Facades\DB;
 
 class newsfeedController extends Controller
 {
@@ -13,7 +15,12 @@ class newsfeedController extends Controller
      */
     public function index()
     {
-        //
+        $newsfeed = Newsfeed::orderBy('id','desc')->get();
+        // $newsfeeds = DB::table('newsfeeds')
+        //         ->orderBy('id', 'desc')
+        //         ->get();
+
+        return view('home', compact('newsfeed'));
     }
 
     /**
@@ -23,7 +30,7 @@ class newsfeedController extends Controller
      */
     public function create()
     {
-        //
+        return view('newsfeedAdd');
     }
 
     /**
@@ -34,7 +41,16 @@ class newsfeedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'info' => 'required'
+        ]);
+
+        $newsfeed = new Newsfeed();
+        $newsfeed->name=$request->name;
+        $newsfeed->info=$request->info;
+        $newsfeed->save();
+        return redirect('/home');
     }
 
     /**
@@ -56,7 +72,7 @@ class newsfeedController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('newsfeedUpdate');
     }
 
     /**
@@ -66,9 +82,17 @@ class newsfeedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Newsfeed $newsfeed)
     {
-        //
+
+        $this->validate($request, [
+            'name' => 'required',
+            'info' => 'required'
+        ]);
+
+        $newsfeed->update($request->all());
+        return redirect('/home');
+
     }
 
     /**
