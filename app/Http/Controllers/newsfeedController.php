@@ -16,9 +16,6 @@ class newsfeedController extends Controller
     public function index()
     {
         $newsfeed = Newsfeed::orderBy('id','desc')->get();
-        // $newsfeeds = DB::table('newsfeeds')
-        //         ->orderBy('id', 'desc')
-        //         ->get();
 
         return view('home', compact('newsfeed'));
     }
@@ -70,9 +67,12 @@ class newsfeedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id, Newsfeed $newsfeed)
     {
-        return view('newsfeedUpdate');
+
+        $newsfeed = Newsfeed::find($id);
+
+        return view('newsfeedUpdate', compact('newsfeed'));
     }
 
     /**
@@ -90,7 +90,10 @@ class newsfeedController extends Controller
             'info' => 'required'
         ]);
 
-        $newsfeed->update($request->all());
+        $newsfeed = DB::table('newsfeeds')
+              ->where('id', $id)
+              ->update(['name' => $request->name, 'info' => $request->info]);
+
         return redirect('/home');
 
     }
@@ -101,9 +104,10 @@ class newsfeedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Newsfeed $newsfeed)
     {
-        //
+        $newsfeed = DB::table('newsfeeds')->where('id', $id)->delete();
+        return redirect('/home');
     }
 }
 

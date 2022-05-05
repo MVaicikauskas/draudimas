@@ -8,14 +8,14 @@
                 <div class="card-header">{{ __('Create New Topic') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/update.new/{{ $new->id }}">
+                    <form method="post" action="/update.new/{{ $newsfeed->id }}">
                         @csrf
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Topic Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{$newsfeed->name}}" name="name"  required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
 
                             <div class="col-md-6">
 
-                                <textarea name="info" id="info" class="form-control @error('info') is-invalid @enderror" required autocomplete="info" cols="30" rows="10"></textarea>
+                                <textarea name="info" id="info" class="form-control @error('info') is-invalid @enderror" required autocomplete="info" cols="30" rows="10">{{$newsfeed->info}}</textarea>
                                 @error('info')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

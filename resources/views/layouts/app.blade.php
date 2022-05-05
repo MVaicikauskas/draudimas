@@ -53,12 +53,21 @@
                                 </li>
                             @endif
                         @else
+                            @if (Auth::user()->name != 'Admin')
+                                <a class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75" href="/create.consultation">Registracija Konsultacijai</a>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end bg-success p-2 text-dark bg-opacity-25" aria-labelledby="navbarDropdown">
+
+                                    @if (Auth::user()->name === 'Admin')
+                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/consultations">Konsultacijos</a>
+                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="#">Produktai</a>
+                                        <hr class="dropdown-divider">
+                                    @endif
                                     <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
