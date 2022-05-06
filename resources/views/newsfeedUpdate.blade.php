@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Create New Topic') }}</div>
 
                 <div class="card-body">
-                    <form method="post" action="/update.new/{{ $newsfeed->id }}">
+                    <form method="post" action="/newsfeed/update/{{ $newsfeed->id }}">
                         @csrf
 
                         <div class="row mb-3">

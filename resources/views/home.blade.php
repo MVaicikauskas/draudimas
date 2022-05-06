@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if (Auth::user()->name === 'Admin')
-            <form action="/create.new" method="get">
+            <form action="/newsfeed/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-success me-md-2" type="submit">Add New Topic</button>
                 </div>
@@ -19,8 +19,8 @@
                     </div>
                     @if (Auth::user()->name === 'Admin')
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/update.new/{{ $new->id }}" class="btn btn-warning me-md-2" type="button">Update</a>
-                        <form action="/delete.new/{{$new->id}}" method="post">
+                        <a href="/newsfeed/update/{{ $new->id }}" class="btn btn-warning me-md-2" type="button">Update</a>
+                        <form action="/newsfeed/delete/{{$new->id}}" method="post">
                             <button type="submit"class="btn btn-danger me-md-2" name="delete">Delete</button>
                             {{ csrf_field()}}
                         </form>

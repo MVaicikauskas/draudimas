@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Consultation;
+use App\Models\User;
 
 class ConsultationController extends Controller
 {
@@ -31,7 +32,8 @@ class ConsultationController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::orderBy('name','asc')->get();
+        return view('consultationsAdd', compact('users'));
     }
 
     /**
@@ -42,7 +44,38 @@ class ConsultationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+            $this->validate($request, [
+                'user_id' => 'required',
+                'topic' => 'required',
+                'type' => 'required',
+                'consultation_date' => 'required'
+            ]);
+
+            if($request->topic === 1){
+                $request->topic = 'Draudimo išmokos';
+            } elseif ($request->topic === 2){
+                $request->topic = 'Žalos atvėju';
+            } elseif($request->topic === 3) {
+                $request->topic = 'Draudimo produktai';
+            }
+            if($request->type === 1){
+                $request->type = 'Telefonu';
+            } elseif ($request->type === 2){
+                $request->type = 'Vaizdo skambučiu';
+            }
+
+            $consultations = DB::table('consultations')->insert([
+                ['user_id' => $request->user_id,
+                'topic' => $request->topic,
+                'type' => $request->type,
+                'additional_info' => $request->additional_info,
+                'consultation_date' => $request->consultation_date
+                ]
+            ]);
+
+            return redirect('/consultations');
+        }
     }
 
     /**
@@ -62,9 +95,17 @@ class ConsultationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Consultation $consultations, $id)
     {
-        //
+        $users = User::orderBy('name','asc')->get();
+        $oneUser = DB::table('users')
+        ->join('consultations', 'consultations.user_id', '=', 'users.id',)
+        ->select('users.name')->where('consultations.id', '=', $id)->get();
+        $consultations = DB::table('consultations')
+        ->where('id', '=', $id)
+        ->get();
+
+        return view('consultationsUpdate', compact('consultations', 'users', 'oneUser'));
     }
 
     /**
@@ -76,7 +117,22 @@ class ConsultationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required',
+            'topic' => 'required',
+            'type' => 'required',
+            'consultation_date' => 'required'
+        ]);
+
+        $consultation = DB::table('newsfeeds')
+              ->where('id', $id)
+              ->update(['user_id' => $request->user_id,
+              'topic' => $request->topic,
+              'type' => $request->type,
+              'additional_info' => $request->additional_info,
+              'consultation_date' => $request->consultation_date]);
+
+        return redirect('/consultations');
     }
 
     /**

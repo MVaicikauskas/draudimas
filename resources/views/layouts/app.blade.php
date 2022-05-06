@@ -54,7 +54,7 @@
                             @endif
                         @else
                             @if (Auth::user()->name != 'Admin')
-                                <a class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75" href="/create.consultation">Registracija Konsultacijai</a>
+                                <a class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75" href="/consultation/create">Registracija Konsultacijai</a>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

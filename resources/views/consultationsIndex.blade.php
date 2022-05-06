@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if (Auth::user()->name === 'Admin')
-            <form action="/create.consultation" method="get">
+            <form action="/consultation/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-success me-md-2 " type="submit">Add New Consultation</button>
                 </div>
@@ -39,7 +39,7 @@
             @endforeach --}}
             <table class="table table-success table-striped">
                 <thead class="align-middle">
-                    <th class="align-middle">Vardas</th>
+                    <th class="align-middle">Vardas Pavardė</th>
                     <th class="align-middle">Telefonas</th>
                     <th class="align-middle">El.paštas</th>
                     <th class="align-middle">Tema</th>
@@ -59,8 +59,8 @@
                         <td>{{ $consultation->info }}</td>
                         <td>{{ $consultation->date }}</td>
                         <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="/update.consultation/{{ $consultation->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti</a>
-                            <form action="/delete.consultation/{{$consultation->id}}" method="post">
+                            <a href="/consultation/update/{{ $consultation->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti</a>
+                            <form action="/consultation/delete/{{$consultation->id}}" method="post">
                                 <button type="submit"class="btn btn-success me-md-2" name="delete">Įvykdyta</button>
                                 {{ csrf_field()}}
                             </form>
