@@ -19,7 +19,7 @@ class CreateConsultationsTable extends Migration
             $table->enum('topic', ['Draudimo išmokos', 'Žalos atvėju', 'Draudimo produktai']);
             $table->enum('type', ['Telefonu', 'Vaizdo skambučiu']);
             $table->string('additional_info')->nullable();
-            $table->dateTime('consultation_date');
+            $table->datetime('consultation_date');
             $table->timestamps();
         });
     }

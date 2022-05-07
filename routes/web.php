@@ -48,5 +48,15 @@ Route::post('/consultation/update/{id}', [ConsultationController::class, 'update
 //Consultation delete
 Route::post('/consultation/delete/{id}', [ConsultationController::class, 'destroy']);
 
+//List of products
+Route::get('/products', [ProductController::class, 'index']);
+//Product create
+Route::get('/products/create', [ProductController::class, 'create']);
+Route::post('/products/store', [ProductController::class, 'store']);
+//Product update
+Route::get('/products/update/{id}', [ProductController::class, 'edit']);
+Route::post('/products/update/{id}', [ProductController::class, 'update']);
 
+//product delete
+Route::post('/products/delete/{id}', [ProductController::class, 'destroy']);
 

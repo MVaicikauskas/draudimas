@@ -15,6 +15,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => 'Kasko',
+            'description' => $this->faker->sentence(20)
         ];
     }
 }

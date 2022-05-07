@@ -8,7 +8,9 @@
                 <div class="card-header">{{ __('Create New Consultation') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/consultation/update">
+                    @foreach ($consultations as $consultation)
+                    <form method="POST" action="/consultation/update/{{ $consultation->id }}">
+                    @endforeach
                         @csrf
 
                         <div class="row mb-3">
@@ -18,7 +20,7 @@
 
                                 <select class="form-select" id="inputGroupSelect01" @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" required autocomplete="user_id" autofocus>
                                     @foreach ($oneUser as $user)
-                                    <option selected>{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
                                     @endforeach
                                     @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -106,6 +108,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Submit') }}
                                 </button>
+                                @foreach ($consultations as $consultation)
+                                <input type="hidden" name="id" value="{{ $consultation->id }}" required autocomplete="id" autofocus>
+                                @endforeach
                             </div>
                         </div>
                     </form>

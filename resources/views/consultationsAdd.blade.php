@@ -10,26 +10,28 @@
                 <div class="card-body">
                     <form method="POST" action="/consultation/store">
                         @csrf
+                        @if (Auth::user()->name === 'Admin')
+                            <div class="row mb-3">
+                                <label for="user_id" class="col-md-4 col-form-label text-md-end">{{ __('Vartotojas') }}</label>
 
-                        <div class="row mb-3">
-                            <label for="user_id" class="col-md-4 col-form-label text-md-end">{{ __('Vartotojas') }}</label>
+                                <div class="col-md-6">
 
-                            <div class="col-md-6">
+                                    <select class="form-select" id="inputGroupSelect01" @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" required autocomplete="user_id" autofocus>
+                                        <option selected>Pasirinkti</option>
+                                        @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
 
-                                <select class="form-select" id="inputGroupSelect01" @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" required autocomplete="user_id" autofocus>
-                                    <option selected>Pasirinkti</option>
-                                    @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-
-                                    @endforeach
-                                </select>
-                                @error('user_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        @endforeach
+                                    </select>
+                                    @error('user_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+
+                        @endif
 
                         <div class="row mb-3">
                             <label for="topic" class="col-md-4 col-form-label text-md-end">{{ __('Tema') }}</label>
@@ -98,6 +100,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Submit') }}
                                 </button>
+                                @if (Auth::user()->name != 'Admin')
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required autocomplete="user_id" autofocus>
+                                @endif
                             </div>
                         </div>
                     </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Consultation;
 use App\Models\User;
 
@@ -16,11 +17,18 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        // $consultations = Consultation::orderBy('consultation_date','desc')->get();
-        $consultations = DB::table('consultations')
+        if(Auth::user()->name === 'Admin'){
+             $consultations = DB::table('consultations')
             ->join('users', 'users.id', '=', 'consultations.user_id',)
             ->select('consultations.id as id','consultations.topic as topic','consultations.type as type','consultations.additional_info as info','consultations.consultation_date as date', 'users.name as name', 'users.phone_number as phone', 'users.email as email')->orderBy('date','asc')
             ->get();
+        } else {
+            $consultations = DB::table('consultations')
+            ->join('users', 'users.id', '=', 'consultations.user_id',)
+            ->select('consultations.id as id','consultations.topic as topic','consultations.type as type','consultations.additional_info as info','consultations.consultation_date as date', 'users.id as user_id','users.name as name', 'users.phone_number as phone', 'users.email as email')->where('user_id', '=', Auth::user()->id)->orderBy('date','asc')
+            ->get();
+        }
+
 
         return view('consultationsIndex', compact('consultations'));
     }
@@ -100,7 +108,7 @@ class ConsultationController extends Controller
         $users = User::orderBy('name','asc')->get();
         $oneUser = DB::table('users')
         ->join('consultations', 'consultations.user_id', '=', 'users.id',)
-        ->select('users.name')->where('consultations.id', '=', $id)->get();
+        ->select('users.name', 'users.id')->where('consultations.id', '=', $id)->get();
         $consultations = DB::table('consultations')
         ->where('id', '=', $id)
         ->get();
@@ -121,16 +129,18 @@ class ConsultationController extends Controller
             'user_id' => 'required',
             'topic' => 'required',
             'type' => 'required',
-            'consultation_date' => 'required'
+            'consultation_date' => 'required',
+            'id' => 'required'
         ]);
 
-        $consultation = DB::table('newsfeeds')
+        $consultations = DB::table('consultations')
               ->where('id', $id)
               ->update(['user_id' => $request->user_id,
               'topic' => $request->topic,
               'type' => $request->type,
               'additional_info' => $request->additional_info,
-              'consultation_date' => $request->consultation_date]);
+              'consultation_date' => $request->consultation_date
+            ]);
 
         return redirect('/consultations');
     }
@@ -143,7 +153,8 @@ class ConsultationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $consultations = DB::table('consultations')->where('id', $id)->delete();
+        return redirect('/consultations');
     }
 
 

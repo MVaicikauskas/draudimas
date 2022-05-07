@@ -5,23 +5,23 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if (Auth::user()->name === 'Admin')
-            <form action="/newsfeed/create" method="get">
+            <form action="/products/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-success me-md-2" type="submit">Pridėti Naujieną</button>
+                    <button class="btn btn-success me-md-2" type="submit">Pridėti Produktą</button>
                 </div>
             </form>
             @endif
-            @foreach ($newsfeed as $new)
+            @foreach ($products as $product)
             <div class="card">
                 <div class="card-header bg-success p-2 bg-opacity-50">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <span class="text-uppercase fw-bolder">{{ $new['name'] }}</span>
+                        <span class="text-uppercase fw-bolder">{{ $product['name'] }}</span>
                     </div>
                     @if (Auth::user()->name === 'Admin')
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/newsfeed/update/{{ $new->id }}" class="btn btn-warning me-md-2" type="button">Atnaujinti</a>
-                        <form action="/newsfeed/delete/{{$new->id}}" method="post">
-                            <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite ištrinti ši įrašą?')" name="delete">Ištrinti</button>
+                        <a href="/products/update/{{ $product->id }}" class="btn btn-warning me-md-2" type="button">Atnaujinti</a>
+                        <form action="/products/delete/{{$product->id}}" method="post">
+                            <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite ištrinti šį produktą?')" name="delete">Ištrinti</button>
                             {{ csrf_field()}}
                         </form>
 
@@ -32,7 +32,7 @@
 
                 <div class="card-body bg-success p-2 text-white bg-opacity-75">
                         <div class="" role="alert">
-                            {{ $new['info'] }}
+                            {{ $product['description'] }}
                         </div>
                 </div>
             </div>

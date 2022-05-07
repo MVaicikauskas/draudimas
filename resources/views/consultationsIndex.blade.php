@@ -7,36 +7,11 @@
             @if (Auth::user()->name === 'Admin')
             <form action="/consultation/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-success me-md-2 " type="submit">Add New Consultation</button>
+                    <button class="btn btn-success me-md-2 " type="submit">Pridėti Naują Konsultaciją</button>
                 </div>
             </form>
             @endif
-            {{-- @foreach ($consultations as $consultation)
-            <div class="card">
-                <div class="card-header bg-success p-2 bg-opacity-50">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <span class="text-uppercase fw-bolder">{{ $consultation['name'] }}</span>
-                    </div>
-                    @if (Auth::user()->name === 'Admin')
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/update.new/{{ $new->id }}" class="btn btn-warning me-md-2" type="button">Update</a>
-                        <form action="/delete.new/{{$new->id}}" method="post">
-                            <button type="submit"class="btn btn-danger me-md-2" name="delete">Delete</button>
-                            {{ csrf_field()}}
-                        </form>
 
-                    </div>
-                    @endif
-                </div>
-
-
-                <div class="card-body bg-success p-2 text-white bg-opacity-75">
-                        <div class="" role="alert">
-                            {{ $consultation['info'] }}
-                        </div>
-                </div>
-            </div>
-            @endforeach --}}
             <table class="table table-success table-striped">
                 <thead class="align-middle">
                     <th class="align-middle">Vardas Pavardė</th>
@@ -60,10 +35,17 @@
                         <td>{{ $consultation->date }}</td>
                         <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="/consultation/update/{{ $consultation->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti</a>
+                            @if (Auth::user()->name === 'Admin')
                             <form action="/consultation/delete/{{$consultation->id}}" method="post">
-                                <button type="submit"class="btn btn-success me-md-2" name="delete">Įvykdyta</button>
+                                <button type="submit"class="btn btn-success me-md-2" onclick="return confirm('Konsultacija su klientu {{ $consultation->name }} įvykdyta?')" name="delete">Įvykdyta</button>
                                 {{ csrf_field()}}
                             </form>
+                            @elseif (Auth::user()->name != 'Admin')
+                            <form action="/consultation/delete/{{$consultation->id}}" method="post">
+                                <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite atšaukti šia konsultaciją?')" name="delete">Atšaukti</button>
+                                {{ csrf_field()}}
+                            </form>
+                            @endif
 
                         </div></td>
                     </tr>

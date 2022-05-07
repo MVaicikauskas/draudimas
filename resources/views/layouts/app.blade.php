@@ -43,16 +43,17 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Prisijungti') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registracija') }}</a>
                                 </li>
                             @endif
                         @else
+                            <a href="{{ url('/home') }}" class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75">Naujienos</a>
                             @if (Auth::user()->name != 'Admin')
                                 <a class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75" href="/consultation/create">Registracija Konsultacijai</a>
                             @endif
@@ -65,13 +66,16 @@
 
                                     @if (Auth::user()->name === 'Admin')
                                         <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/consultations">Konsultacijos</a>
-                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="#">Produktai</a>
+                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/products">Produktai</a>
+                                        <hr class="dropdown-divider">
+                                        @elseif (Auth::user()->name != 'Admin')
+                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/consultations"> Mano Konsultacijos</a>
                                         <hr class="dropdown-divider">
                                     @endif
                                     <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Atsijungti') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
