@@ -3,6 +3,8 @@
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\NewsfeedController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use App\Models\Consultation;
 use App\Models\Newsfeed;
 use Illuminate\Support\Facades\Route;

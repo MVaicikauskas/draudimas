@@ -15,9 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::orderBy('name','asc')->get();
+        $products = Product::orderBy('name','asc')->get();
 
-        return view('productsIndex', compact('product'));
+        return view('productsIndex', compact('products'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('productAdd');
     }
 
     /**
@@ -38,7 +38,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $product = new Product();
+        $product->name=$request->name;
+        $product->description=$request->description;
+        $product->save();
+        return redirect('/products');
     }
 
     /**
@@ -58,9 +67,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Product $product)
     {
-        //
+        $product = Product::find($id);
+
+        return view('productUpdate', compact('product'));
     }
 
     /**
@@ -70,9 +81,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Product $product)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $product = DB::table('products')
+              ->where('id', $id)
+              ->update(['name' => $request->name, 'description' => $request->description]);
+
+        return redirect('/products');
     }
 
     /**
@@ -81,8 +101,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Product $product)
     {
-        //
+        $product = DB::table('products')->where('id', $id)->delete();
+        return redirect('/products');
     }
 }

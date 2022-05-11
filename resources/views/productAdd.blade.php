@@ -8,11 +8,11 @@
                 <div class="card-header">{{ __('Create New Topic') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/newsfeed/store">
+                    <form method="POST" action="/products/store">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Temos Pavadinimas') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Produkto Pavadinimas') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -26,12 +26,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="info" class="col-md-4 col-form-label text-md-end">{{ __('Temos Informacija') }}</label>
+                            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Produkto Aprašymas') }}</label>
 
                             <div class="col-md-6">
 
-                                <textarea name="info" id="info" class="form-control @error('info') is-invalid @enderror" value="{{ old('info') }}" required autocomplete="info" cols="30" rows="10"></textarea>
-                                @error('info')
+                                <textarea name="description" id="info" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" required autocomplete="description" cols="30" rows="10"></textarea>
+                                @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

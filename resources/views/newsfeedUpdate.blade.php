@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create New Topic') }}</div>
+                <div class="card-header">{{ __('Sukurti Naują Temą') }}</div>
 
                 <div class="card-body">
                     <form method="post" action="/newsfeed/update/{{ $newsfeed->id }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Topic Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Temos Pavadinimas') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{$newsfeed->name}}" name="name"  required autocomplete="name" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="info" class="col-md-4 col-form-label text-md-end">{{ __('Body') }}</label>
+                            <label for="info" class="col-md-4 col-form-label text-md-end">{{ __('Temos Informacija') }}</label>
 
                             <div class="col-md-6">
 
