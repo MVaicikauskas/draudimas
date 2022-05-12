@@ -54,7 +54,7 @@
                             @endif
                         @else
                             <a href="{{ url('/home') }}" class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75">Naujienos</a>
-                            @if (Auth::user()->name != 'Admin')
+                            @if (Auth::user()->role === 'User')
                                 <a class="btn btn-success me-md-5 bg-success p-2 text-dark bg-opacity-75" href="/consultation/create">Registracija Konsultacijai</a>
                             @endif
                             <li class="nav-item dropdown">
@@ -64,11 +64,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-end bg-success p-2 text-dark bg-opacity-25" aria-labelledby="navbarDropdown">
 
-                                    @if (Auth::user()->name === 'Admin')
+                                    @if (Auth::user()->role === 'Admin')
                                         <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/consultations">Konsultacijos</a>
                                         <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/products">Produktai</a>
+                                        <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/users">Sistemos Vartotojai</a>
                                         <hr class="dropdown-divider">
-                                        @elseif (Auth::user()->name != 'Admin')
+                                        @elseif (Auth::user()->role === 'User')
                                         <a class="dropdown-item bg-success p-2 text-dark bg-opacity-50" href="/consultations"> Mano Konsultacijos</a>
                                         <hr class="dropdown-divider">
                                     @endif
