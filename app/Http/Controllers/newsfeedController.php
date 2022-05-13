@@ -39,15 +39,20 @@ class newsfeedController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'info' => 'required'
+            'name' => 'required|max:64',
+            'info' => 'required|max:2000'
+        ], [
+            'name.required' => 'Temos pavadinimas privalo būti įrašytas.',
+            'name.max:64' => 'Temos pavadinimo ilgis negali būti ilgesnis nei 64 simboliai.',
+            'info.required' => 'Temos Informacija privalo būti įrašyta.',
+            'info.max:2000' => 'Temos Informacijos ilgis negali būti ilgesnis nei 2000 simbolių.'
         ]);
 
         $newsfeed = new Newsfeed();
         $newsfeed->name=$request->name;
         $newsfeed->info=$request->info;
         $newsfeed->save();
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Naujiena įrašyta sėkmingai.');
     }
 
     /**
@@ -86,15 +91,20 @@ class newsfeedController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required',
-            'info' => 'required'
+            'name' => 'required|max:64',
+            'info' => 'required|max:2000'
+        ], [
+            'name.required' => 'Temos pavadinimas privalo būti įrašytas.',
+            'name.max:64' => 'Temos pavadinimo ilgis negali būti ilgesnis nei 64 simboliai.',
+            'info.required' => 'Temos Informacija privalo būti įrašyta.',
+            'info.max:2000' => 'Temos Informacijos ilgis negali būti ilgesnis nei 2000 simbolių.'
         ]);
 
         $newsfeed = DB::table('newsfeeds')
               ->where('id', $id)
               ->update(['name' => $request->name, 'info' => $request->info]);
 
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Naujiena atnaujinta sėkmingai.');
 
     }
 
@@ -107,7 +117,7 @@ class newsfeedController extends Controller
     public function destroy($id, Newsfeed $newsfeed)
     {
         $newsfeed = DB::table('newsfeeds')->where('id', $id)->delete();
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Tema ištrinta sėkmingai.');
     }
 }
 

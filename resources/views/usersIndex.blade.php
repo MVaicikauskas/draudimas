@@ -11,7 +11,7 @@
                     Session::forget('success');
                     @endphp
                 </div>
-                        @endif
+            @endif
             @if (Auth::user()->role === 'Admin')
             <form action="/users/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -22,7 +22,7 @@
 
             <table class="table table-success table-striped">
                 <thead class="align-middle">
-                    <th class="align-middle">Vardas Pavardė</th>
+                    <th class="align-middle">Vardas Pavardė<i class="fa-solid fa-arrow-down-a-z"></i></th>
                     <th class="align-middle">Telefonas</th>
                     <th class="align-middle">El.paštas</th>
                     <th class="align-middle">Registracijos Data</th>

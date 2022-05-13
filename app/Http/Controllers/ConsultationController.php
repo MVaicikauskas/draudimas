@@ -17,7 +17,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->name === 'Admin'){
+        if(Auth::user()->role === 'Admin'){
              $consultations = DB::table('consultations')
             ->join('users', 'users.id', '=', 'consultations.user_id',)
             ->select('consultations.id as id','consultations.topic as topic','consultations.type as type','consultations.additional_info as info','consultations.consultation_date as date', 'users.name as name', 'users.phone_number as phone', 'users.email as email')->orderBy('date','asc')
@@ -58,6 +58,11 @@ class ConsultationController extends Controller
                 'topic' => 'required',
                 'type' => 'required',
                 'consultation_date' => 'required'
+            ], [
+                'user_id.required' => 'Nepasirinktas Vartotojas konsultacijai.',
+                'topic.required' => 'Prašome pasirinkti konsultacijos temą.',
+                'type.email' => 'Prašome pasirinkti konsultacijos tipą.',
+                'consultation_date.required' => 'Prašome pasirinkti konsultacijos dieną ir laiką.',
             ]);
 
             if($request->topic === 1){
@@ -82,7 +87,7 @@ class ConsultationController extends Controller
                 ]
             ]);
 
-            return redirect('/consultations');
+            return redirect('/consultations')->with('success', 'Konsultacijos registracija sėkminga.');
         }
     }
 
@@ -131,6 +136,12 @@ class ConsultationController extends Controller
             'type' => 'required',
             'consultation_date' => 'required',
             'id' => 'required'
+        ], [
+            'user_id.required' => 'Nepasirinktas Vartotojas konsultacijai.',
+            'topic.required' => 'Prašome pasirinkti konsultacijos temą.',
+            'type.email' => 'Prašome pasirinkti konsultacijos tipą.',
+            'consultation_date.required' => 'Prašome pasirinkti konsultacijos dieną ir laiką.',
+            'id.required' => 'Įvyko klaida, negautas konsultacijos ID, prašome bandyti dar kartą arba susisiekti su Administracija.',
         ]);
 
         $consultations = DB::table('consultations')
@@ -142,7 +153,7 @@ class ConsultationController extends Controller
               'consultation_date' => $request->consultation_date
             ]);
 
-        return redirect('/consultations');
+            return redirect('/consultations')->with('success', 'Konsultacija atnaujinta sėkmingai.');
     }
 
     /**
@@ -154,7 +165,7 @@ class ConsultationController extends Controller
     public function destroy($id)
     {
         $consultations = DB::table('consultations')->where('id', $id)->delete();
-        return redirect('/consultations');
+        return redirect('/consultations')->with('success', 'Konsultacija ištrinta sėkmingai.');
     }
 
 

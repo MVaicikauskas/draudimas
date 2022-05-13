@@ -54,6 +54,16 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone_number' => ['required', 'string', 'max:13'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'Vardas ir Pavardė privalo būti įrašyti.',
+            'name.max:255' => 'Vardas ir Pavardė negali būti ilgesni nei 255 simbolių.',
+            'email.required' => 'El. pašto adresas privalo būti įrašytas.',
+            'email.email' => 'Neteisingai įrašytas El. pašto adresas.',
+            'email.max:255' => 'El. pašto adresas negali būti ilgesnis nei 255 simbolių.',
+            'email.unique:users' => 'Toks El. pašto adresas jau egzistuoja, bandykite naudoti kitą.',
+            'phone_number.required' => 'Telefono numeris privalo būti įrašytas.',
+            'phone_number.numeric' => 'Telefono numeris privalo būti TIK skaičiai.',
+            'phone_number.max:13' => 'Telefono numeris negali būti ilgesnis nei 13 skaitmenų.',
         ]);
     }
 

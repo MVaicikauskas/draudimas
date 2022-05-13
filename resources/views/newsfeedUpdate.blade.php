@@ -10,6 +10,14 @@
                 <div class="card-body">
                     <form method="post" action="/newsfeed/update/{{ $newsfeed->id }}">
                         @csrf
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                        @endif
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Temos Pavadinimas') }}</label>

@@ -10,7 +10,15 @@
                 <div class="card-body">
                     <form method="POST" action="/consultation/store">
                         @csrf
-                        @if (Auth::user()->name === 'Admin')
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                        @endif
+                        @if (Auth::user()->role === 'Admin')
                             <div class="row mb-3">
                                 <label for="user_id" class="col-md-4 col-form-label text-md-end">{{ __('Vartotojas') }}</label>
 
@@ -100,7 +108,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Submit') }}
                                 </button>
-                                @if (Auth::user()->name != 'Admin')
+                                @if (Auth::user()->role != 'Admin')
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required autocomplete="user_id" autofocus>
                                 @endif
                             </div>

@@ -4,7 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if (Auth::user()->name === 'Admin')
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                    @php
+                        Session::forget('success');
+                    @endphp
+                </div>
+            @endif
+            @if (Auth::user()->role === 'Admin')
             <form action="/newsfeed/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-success me-md-2" type="submit">Pridėti Naujieną</button>
@@ -14,10 +22,13 @@
             @foreach ($newsfeed as $new)
             <div class="card">
                 <div class="card-header bg-success p-2 bg-opacity-50">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <div class="d-grid gap-2 d-md-table-row justify-content-md-start">
                         <span class="text-uppercase fw-bolder">{{ $new['name'] }}</span>
                     </div>
-                    @if (Auth::user()->name === 'Admin')
+                    <div class="d-grid gap-2 d-md-table-row justify-content-md-end">
+                        <span class="text-uppercase fw-bolder">{{ $new['created_at'] }}</span>
+                    </div>
+                    @if (Auth::user()->role === 'Admin')
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/newsfeed/update/{{ $new->id }}" class="btn btn-warning me-md-2" type="button">Atnaujinti</a>
                         <form action="/newsfeed/delete/{{$new->id}}" method="post">

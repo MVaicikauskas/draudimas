@@ -4,7 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if (Auth::user()->name === 'Admin')
+            @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                        @endif
+            @if (Auth::user()->role === 'Admin')
             <form action="/consultation/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-success me-md-2 " type="submit">Pridėti Naują Konsultaciją</button>
@@ -35,12 +43,12 @@
                         <td>{{ $consultation->date }}</td>
                         <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="/consultation/update/{{ $consultation->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti</a>
-                            @if (Auth::user()->name === 'Admin')
+                            @if (Auth::user()->role === 'Admin')
                             <form action="/consultation/delete/{{$consultation->id}}" method="post">
                                 <button type="submit"class="btn btn-success me-md-2" onclick="return confirm('Konsultacija su klientu {{ $consultation->name }} įvykdyta?')" name="delete">Įvykdyta</button>
                                 {{ csrf_field()}}
                             </form>
-                            @elseif (Auth::user()->name != 'Admin')
+                            @elseif (Auth::user()->role != 'Admin')
                             <form action="/consultation/delete/{{$consultation->id}}" method="post">
                                 <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite atšaukti šia konsultaciją?')" name="delete">Atšaukti</button>
                                 {{ csrf_field()}}

@@ -17,7 +17,7 @@
                             @endphp
                         </div>
                         @endif
-                        @if (Auth::user()->role === 'Admin')
+
                         <div class="row mb-3">
                             <label for="new_password" class="col-md-4 col-form-label text-md-end">{{ __('Naujas Slaptažodis') }}</label>
 
@@ -44,7 +44,7 @@
                                 @enderror
                             </div>
                         </div>
-                        @endif
+
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

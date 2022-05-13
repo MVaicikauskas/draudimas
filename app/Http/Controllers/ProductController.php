@@ -39,15 +39,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required|max:255',
+            'description' => 'required|max:2000'
+        ], [
+            'name.required' => 'Produkto pavadinimas privalo būti įrašytas.',
+            'name.max:255' => 'Produkto pavadinimo ilgis negali būti ilgesnis nei 255 simboliai.',
+            'description.required' => 'Produkto Aprašymas privalo būti įrašyta.',
+            'description.max:255' => 'Produkto Aprašymas ilgis negali būti ilgesnis nei 2000 simbolių.'
         ]);
 
         $product = new Product();
         $product->name=$request->name;
         $product->description=$request->description;
         $product->save();
-        return redirect('/products');
+        return redirect('/products')->with('success', 'Produktas įrašytas sėkmingai.');
     }
 
     /**
@@ -84,15 +89,20 @@ class ProductController extends Controller
     public function update(Request $request, $id, Product $product)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required|max:255',
+            'description' => 'required|max:2000'
+        ], [
+            'name.required' => 'Produkto pavadinimas privalo būti įrašytas.',
+            'name.max:255' => 'Produkto pavadinimo ilgis negali būti ilgesnis nei 255 simboliai.',
+            'description.required' => 'Produkto Aprašymas privalo būti įrašyta.',
+            'description.max:255' => 'Produkto Aprašymas ilgis negali būti ilgesnis nei 2000 simbolių.'
         ]);
 
         $product = DB::table('products')
               ->where('id', $id)
               ->update(['name' => $request->name, 'description' => $request->description]);
 
-        return redirect('/products');
+              return redirect('/products')->with('success', 'Produktas atnaujintas sėkmingai.');
     }
 
     /**
@@ -104,6 +114,6 @@ class ProductController extends Controller
     public function destroy($id, Product $product)
     {
         $product = DB::table('products')->where('id', $id)->delete();
-        return redirect('/products');
+        return redirect('/products')->with('success', 'Produktas ištrintas sėkmingai.');
     }
 }

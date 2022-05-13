@@ -4,7 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if (Auth::user()->name === 'Admin')
+            @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                        @endif
+            @if (Auth::user()->role === 'Admin')
             <form action="/products/create" method="get">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-success me-md-2" type="submit">Pridėti Produktą</button>
@@ -17,7 +25,7 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                         <span class="text-uppercase fw-bolder">{{ $product['name'] }}</span>
                     </div>
-                    @if (Auth::user()->name === 'Admin')
+                    @if (Auth::user()->role === 'Admin')
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/products/update/{{ $product->id }}" class="btn btn-warning me-md-2" type="button">Atnaujinti</a>
                         <form action="/products/delete/{{$product->id}}" method="post">

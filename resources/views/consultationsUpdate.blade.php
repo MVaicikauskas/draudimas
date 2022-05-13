@@ -12,6 +12,14 @@
                     <form method="POST" action="/consultation/update/{{ $consultation->id }}">
                     @endforeach
                         @csrf
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                        @endif
 
                         <div class="row mb-3">
                             <label for="user_id" class="col-md-4 col-form-label text-md-end">{{ __('Vartotojas') }}</label>

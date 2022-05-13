@@ -18,7 +18,7 @@
                             @endphp
                         </div>
                         @endif
-                        @if (Auth::user()->role === 'Admin')
+
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Vardas Pavardė') }}</label>
 
@@ -58,6 +58,7 @@
                                 @enderror
                             </div>
                         </div>
+                        @if (Auth::user()->role === 'Admin')
                         <div class="row mb-3">
                             <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Vartotojo Tipas') }}</label>
 

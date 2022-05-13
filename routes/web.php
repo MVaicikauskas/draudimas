@@ -69,6 +69,8 @@ Route::get('/users', [UserController::class, 'index']);
 //Users create
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users/store', [UserController::class, 'store']);
+//Profile
+Route::get('/users/show/{id}', [UserController::class, 'show']);
 //Users update
 Route::get('/users/passwordUpdate/{id}', [UserController::class, 'passwordEdit']);
 Route::post('/users/passwordUpdate/{id}', [UserController::class, 'passwordUpdate']);
