@@ -30,7 +30,9 @@ Route::get('/', function () {
 Auth::routes();
 //Main window of newsfeeds
 Route::get('/home', [NewsfeedController::class, 'index'])->name('newsfeed');
-//Newsfeed create
+
+Route::group(['middleware' => ['auth']], function (){
+   //Newsfeed create
 Route::get('/newsfeed/create', [NewsfeedController::class, 'create']);
 Route::post('/newsfeed/store', [NewsfeedController::class, 'store']);
 //Newsfeed update
@@ -79,4 +81,7 @@ Route::post('/users/update/{id}', [UserController::class, 'update']);
 
 //Users delete
 Route::post('/users/delete/{id}', [UserController::class, 'destroy']);
+
+
+});
 

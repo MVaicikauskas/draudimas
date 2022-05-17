@@ -30,7 +30,7 @@ class ConsultationController extends Controller
         }
 
 
-        return view('consultationsIndex', compact('consultations'));
+        return view('consultations.index', compact('consultations'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ConsultationController extends Controller
     public function create()
     {
         $users = User::orderBy('name','asc')->get();
-        return view('consultationsAdd', compact('users'));
+        return view('consultations.create', compact('users'));
     }
 
     /**
@@ -118,7 +118,7 @@ class ConsultationController extends Controller
         ->where('id', '=', $id)
         ->get();
 
-        return view('consultationsUpdate', compact('consultations', 'users', 'oneUser'));
+        return view('consultations.update', compact('consultations', 'users', 'oneUser'));
     }
 
     /**

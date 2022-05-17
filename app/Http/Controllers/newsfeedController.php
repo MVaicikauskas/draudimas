@@ -27,7 +27,7 @@ class newsfeedController extends Controller
      */
     public function create()
     {
-        return view('newsfeedAdd');
+        return view('newsfeeds.create');
     }
 
     /**
@@ -77,7 +77,7 @@ class newsfeedController extends Controller
 
         $newsfeed = Newsfeed::find($id);
 
-        return view('newsfeedUpdate', compact('newsfeed'));
+        return view('newsfeeds.update', compact('newsfeed'));
     }
 
     /**

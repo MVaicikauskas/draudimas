@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('name','asc')->get();
 
-        return view('productsIndex', compact('products'));
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('productAdd');
+        return view('products.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        return view('productUpdate', compact('product'));
+        return view('products.update', compact('product'));
     }
 
     /**

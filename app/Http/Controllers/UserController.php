@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('name','asc')->get();
 
-        return view('usersIndex', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usersAdd');
+        return view('users.create');
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $users = User::find($id);
 
-        return view('profile', compact('users'));
+        return view('users.profile', compact('users'));
     }
 
     /**
@@ -104,7 +104,7 @@ class UserController extends Controller
             $users->role = 'Vartotojas';
         }
 
-        return view('usersUpdate', compact('users'));
+        return view('users.update', compact('users'));
     }
 
     /**
@@ -117,7 +117,7 @@ class UserController extends Controller
     {
         $users = User::find($id);
 
-        return view('passwordUpdate', compact('users'));
+        return view('users.passwordUpdate', compact('users'));
     }
 
     /**
@@ -131,7 +131,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'phone_number' => 'required|min:9|numeric',
             'role' => 'required'
         ], [
