@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Consultation;
 use App\Models\User;
+use App\Mail\ConsultationMail;
 
 class ConsultationController extends Controller
 {
@@ -65,6 +67,8 @@ class ConsultationController extends Controller
                 'consultation_date.required' => 'Prašome pasirinkti konsultacijos dieną ir laiką.',
             ]);
 
+
+
             if($request->topic === 1){
                 $request->topic = 'Draudimo išmokos';
             } elseif ($request->topic === 2){
@@ -76,6 +80,8 @@ class ConsultationController extends Controller
                 $request->type = 'Telefonu';
             } elseif ($request->type === 2){
                 $request->type = 'Vaizdo skambučiu';
+            } elseif ($request->type === 3){
+                $request->type = 'Gyvai Ergo padalinyje';
             }
 
             $consultations = DB::table('consultations')->insert([
@@ -86,6 +92,12 @@ class ConsultationController extends Controller
                 'consultation_date' => $request->consultation_date
                 ]
             ]);
+
+            $details = [
+                'consultation_date' => $request->consultation_date
+            ];
+
+            Mail::to(auth()->user()->email)->send( new ConsultationMail($details));
 
             return redirect('/consultations')->with('success', 'Konsultacijos registracija sėkminga.');
         }

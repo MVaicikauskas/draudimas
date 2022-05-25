@@ -28,7 +28,7 @@
                     @if (Auth::user()->role === 'Admin')
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/products/update/{{ $product->id }}" class="btn btn-warning me-md-2" type="button">Atnaujinti</a>
-                        <form action="/products/delete/{{$product->id}}" method="post">
+                        <form class="d-inline" action="/products/delete/{{$product->id}}" method="post">
                             <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite ištrinti šį produktą?')" name="delete">Ištrinti</button>
                             {{ csrf_field()}}
                         </form>

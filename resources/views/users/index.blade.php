@@ -39,7 +39,7 @@
                             <a href="/users/update/{{ $user->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti Duomenis</a>
                             <a href="/users/passwordUpdate/{{ $user->id }}" class="btn btn-warning me-md-2" type="button">Keisti Slaptažodį</a>
 
-                            <form action="/users/delete/{{$user->id}}" method="post">
+                            <form class="d-inline" action="/users/delete/{{$user->id}}" method="post">
                                 <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite ištrinti vartotoją {{ $user->name }}?')" name="delete">Ištrinti Vartotoją</button>
                                 {{ csrf_field()}}
                             </form>

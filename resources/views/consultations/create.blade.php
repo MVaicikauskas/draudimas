@@ -67,6 +67,7 @@
                                     <option selected>Pasirinkti</option>
                                     <option value="1">Telefonu</option>
                                     <option value="2">Vaizdo skambučiu</option>
+                                    <option value="3">Gyvai Ergo padalinyje</option>
                                 </select>
                                 @error('type')
                                     <span class="invalid-feedback" role="alert">

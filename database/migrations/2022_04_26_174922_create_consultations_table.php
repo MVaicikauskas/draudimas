@@ -17,7 +17,7 @@ class CreateConsultationsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->enum('topic', ['Draudimo išmokos', 'Žalos atvėju', 'Draudimo produktai']);
-            $table->enum('type', ['Telefonu', 'Vaizdo skambučiu']);
+            $table->enum('type', ['Telefonu', 'Vaizdo skambučiu', 'Gyvai Ergo padalinyje']);
             $table->string('additional_info')->nullable();
             $table->datetime('consultation_date');
             $table->timestamps();

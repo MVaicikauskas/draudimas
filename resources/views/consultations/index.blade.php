@@ -44,12 +44,12 @@
                         <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="/consultation/update/{{ $consultation->id }}" class="btn btn-warning me-md-2" type="button">Tvarkyti</a>
                             @if (Auth::user()->role === 'Admin')
-                            <form action="/consultation/delete/{{$consultation->id}}" method="post">
+                            <form  class="d-inline" action="/consultation/delete/{{$consultation->id}}" method="post">
                                 <button type="submit"class="btn btn-success me-md-2" onclick="return confirm('Konsultacija su klientu {{ $consultation->name }} įvykdyta?')" name="delete">Įvykdyta</button>
                                 {{ csrf_field()}}
                             </form>
                             @elseif (Auth::user()->role != 'Admin')
-                            <form action="/consultation/delete/{{$consultation->id}}" method="post">
+                            <form class="d-inline" action="/consultation/delete/{{$consultation->id}}" method="post">
                                 <button type="submit"class="btn btn-danger me-md-2" onclick="return confirm('Ar tikrai norite atšaukti šia konsultaciją?')" name="delete">Atšaukti</button>
                                 {{ csrf_field()}}
                             </form>
